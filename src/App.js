@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import Pdf from "react-to-pdf";
 import './App.css';
 const ref = React.createRef();
