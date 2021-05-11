@@ -1,28 +1,17 @@
 .App {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   padding: 30px;
 }
-table { 
-	width: 67vw; 
-	border-collapse: collapse; 
-	}
 
-/* Zebra striping */
-tr:nth-of-type(odd) { 
-	background: #eee; 
-	}
-
-th { 
-	background: #3498db; 
-	color: white; 
-	font-weight: bold; 
-	}
-
-td, th { 
-	padding: 10px; 
-	border: 1px solid #ccc; 
-	text-align: left; 
-	font-size: 18px;
-	}
+.pdfInput {
+	height: 30px;
+	width: 60vw;
+}
+.pdfBtn {
+	padding: 10px;
+	background: rgb(68, 68, 248);
+	color: white;
+	border-radius: 5px;
+}

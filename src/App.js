@@ -1,177 +1,48 @@
-import React, { useEffect } from 'react'
-import Pdf from "react-to-pdf";
+import React, { useState } from 'react'
 import './App.css';
-const ref = React.createRef();
 
 export default function App() {
-  useEffect(() => {
-    document.getElementById("printBtn").click();
-  }, []);
+
+  const [url, setUrl] = useState("")
+  const getPDF = async () => {
+    const dataURL = encodeURI(url);
+    fetch(`https://api.html2pdf.app/v1/generate?url=${dataURL}&apiKey=socmojfnJASmCHrI4p4JaL3LQnRK9mJw92dyZdRhXrW16B1nHtHpF9YXc6DfWNAj`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/pdf',
+        'Authorization': `Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhc2hpc2hAb25hdG8uaW4iLCJhdXRoIjp7ImF1dGhvcml0eSI6IkFETUlOIn0sInJvbGVfdHlwZSI6IkFETUlOIiwiZW1haWwiOiJhc2hpc2hAb25hdG8uaW4iLCJpZCI6MSwiaWF0IjoxNjIwMzgzMTYwLCJleHAiOjE3MDY3ODMxNjB9.qoncz2W1fhSzbamYcG8JsupZxZt-3S9KZ-tqWfBQaXQ`
+      },
+    })
+      .then((response) => response.blob())
+      .then((blob) => {
+        // Create blob link to download
+        const url = window.URL.createObjectURL(
+          new Blob([blob]),
+        );
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute(
+          'download',
+          `sample.pdf`,
+        );
+
+        // Append to html link element page
+        document.body.appendChild(link);
+
+        // Start download
+        link.click();
+
+        // Clean up and remove the link
+        link.parentNode.removeChild(link);
+      });
+  }
   return (
-    <div className="App">
-      <Pdf targetRef={ref} filename="code-example.pdf">
-        {({ toPdf }) => <div onClick={toPdf} id="printBtn"></div>}
-      </Pdf>
-      <div ref={ref}>
-        <table>
-          <thead>
-            <tr>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Job Title</th>
-              <th>Twitter</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-column="First Name">Ankit</td>
-              <td data-column="Last Name">Saxena</td>
-              <td data-column="Job Title">Frontend Developer</td>
-              <td data-column="Twitter">@ankitsaxena21</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr><tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr>
-            <tr>
-              <td data-column="First Name">James</td>
-              <td data-column="Last Name">Matman</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@james</td>
-            </tr>
-            <tr>
-              <td data-column="First Name">Andor</td>
-              <td data-column="Last Name">Nagy</td>
-              <td data-column="Job Title">Designer</td>
-              <td data-column="Twitter">@andornagy</td>
-            </tr>
-            <tr>
-              <td data-column="First Name">Tamas</td>
-              <td data-column="Last Name">Biro</td>
-              <td data-column="Job Title">Game Tester</td>
-              <td data-column="Twitter">@tamas</td>
-            </tr>
-            <tr>
-              <td data-column="First Name">Zoli</td>
-              <td data-column="Last Name">Mastah</td>
-              <td data-column="Job Title">Developer</td>
-              <td data-column="Twitter">@zoli</td>
-            </tr>
-            <tr>
-              <td data-column="First Name">Szabi</td>
-              <td data-column="Last Name">Nagy</td>
-              <td data-column="Job Title">Chief Sandwich Eater</td>
-              <td data-column="Twitter">@szabi</td>
-            </tr>
-          </tbody>
-        </table>
+    <>
+      <h2 style={{ textAlign: "center" }}>HMTL To PDF Download Demo</h2>
+      <div className="App">
+        <input type="text" value={url} onChange={(e) => setUrl(e.target.value)} className="pdfInput" />
+        <button onClick={getPDF} className="pdfBtn">Get PDF</button>
       </div>
-    </div>
+    </>
   );
 }
